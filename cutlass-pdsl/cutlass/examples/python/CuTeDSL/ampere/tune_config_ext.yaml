@@ -1,0 +1,61 @@
+# tune_config.yaml
+# Keep your *full* existing search space here (CTA tiles, stages, etc.).
+# The sweep will combine those with the NEW knobs below,
+# but if `require_any_new_knob_change: true`, it will SKIP runs where
+# all new knobs equal their baselines (to avoid re-running old configs).
+
+# =========================
+# Existing knobs (keep yours)
+# =========================
+# Paste your full list; examples shown for structure only:
+cta_list:
+  - 64x128x64
+  - 128x64x64
+  - 128x128x32
+  # ... (keep your ~150 shapes here)
+
+stages: [3, 4, 5, 6]
+
+atom_layouts:
+  - 1x1x1
+  - 2x2x1
+
+# Valid: A in {m,k}, B in {n,k}, C in {n,m}
+layouts: [mnn, mkn, knn]
+
+# =========================
+# NEW knobs (vectorization)
+# =========================
+# Align leading dimensions (in elements) to enable wider vector loads/stores.
+# For FP16: 8 elems = 16 bytes (128-bit), 16 elems = 32 bytes (256-bit).
+lda_align_elems: [1, 8, 16]
+ldb_align_elems: [1, 8, 16]
+ldc_align_elems: [1, 8, 16]
+
+# Epilogue store vector width (in elements). Typical FP16 values: 2,4,8.
+epilogue_elems_per_access: [4, 8]
+
+# Explicit beta=0 specialization (skips reading C)
+beta_zero_special: [true]  # keep true only, or add false if you want both
+
+# ================
+# Baseline control
+# ================
+# Mark which *new* values represent your previous baseline (to be skipped
+# if `require_any_new_knob_change` is true and all new knobs equal baseline).
+new_knob_baselines:
+  lda_align_elems: 1
+  ldb_align_elems: 1
+  ldc_align_elems: 1
+  epilogue_elems_per_access: 4
+  beta_zero_special: true
+
+# If true, skip any config where ALL new knobs equal their baselines.
+require_any_new_knob_change: true
+
+# ================
+# Bench settings
+# ================
+iters: 50
+warmup: 5
+use_cold_l2: false
