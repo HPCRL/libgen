@@ -15,6 +15,7 @@ Edit tune_config.yaml to change sweep parameters.
 """
 
 import argparse
+import ast
 import csv
 import itertools
 import json
@@ -98,6 +99,91 @@ FIELDNAMES = [
     "atom_m","atom_n","atom_k",
     "avg_us","gflops",
 ]
+
+
+def _cfg_rows_equal(a: dict, b: dict) -> bool:
+    """Compare two config rows on the keys that define a unique attempt.
+    Ignores timing/perf fields; requires exact match of problem/layout/tile/stage/atom.
+    """
+    keys = [
+        "M", "N", "K", "L",
+        "a_major", "b_major", "c_major",
+        "cta_m", "cta_n", "cta_k", "stages",
+        "atom_m", "atom_n", "atom_k",
+    ]
+    try:
+        return all(a.get(k) == b.get(k) for k in keys)
+    except Exception:
+        return False
+
+
+def _parse_last_cfg_from_log(log_path: Path) -> dict | None:
+    """Parse the last attempted cfg_row from a previous run's log file.
+    Looks for lines like: `[OK]|[skip]|[fail] { ... } -> ...` and returns the dict.
+    """
+    if not log_path.exists():
+        return None
+    try:
+        # Read in reverse to find the most recent attempt
+        with log_path.open("r", errors="ignore") as f:
+            lines = f.readlines()
+        for line in reversed(lines):
+            # Consider only lines that look like our status outputs
+            if "{" not in line or "}" not in line:
+                continue
+            # Keep only the part before the arrow to avoid braces in error messages
+            before = line.split("->", 1)[0]
+            l = before.find("{")
+            r = before.rfind("}")
+            if l == -1 or r == -1 or r <= l:
+                continue
+            dict_str = before[l:r+1]
+            try:
+                cfg = ast.literal_eval(dict_str)
+                # Ensure expected keys exist; fill defaults if missing
+                if isinstance(cfg, dict) and {"M","N","K","L","cta_m","cta_n","cta_k"}.issubset(cfg.keys()):
+                    return cfg
+            except Exception:
+                continue
+    except Exception:
+        return None
+    return None
+
+
+def _parse_last_cfg_from_csv(csv_path: Path) -> dict | None:
+    """Read the last successful row from CSV and convert to cfg_row-like dict.
+    This is a fallback when no resume log is provided.
+    """
+    if not csv_path.exists() or csv_path.stat().st_size == 0:
+        return None
+    try:
+        last_row = None
+        with csv_path.open("r", newline="") as f:
+            rdr = csv.DictReader(f)
+            for row in rdr:
+                last_row = row
+        if not last_row:
+            return None
+        # Convert to the same key types as cfg_row used in the sweep
+        cfg = {
+            "M": int(last_row["M"]),
+            "N": int(last_row["N"]),
+            "K": int(last_row["K"]),
+            "L": int(last_row.get("L", 1)),
+            "a_major": str(last_row["a_major"]).strip().lower(),
+            "b_major": str(last_row["b_major"]).strip().lower(),
+            "c_major": str(last_row["c_major"]).strip().lower(),
+            "cta_m": int(last_row["cta_m"]),
+            "cta_n": int(last_row["cta_n"]),
+            "cta_k": int(last_row["cta_k"]),
+            "stages": int(last_row["stages"]),
+            "atom_m": int(last_row["atom_m"]),
+            "atom_n": int(last_row["atom_n"]),
+            "atom_k": int(last_row["atom_k"]),
+        }
+        return cfg
+    except Exception:
+        return None
 
 
 def ensure_csv_with_header(path: Path, fieldnames):
@@ -210,10 +296,19 @@ def main():
     p.add_argument("--problems_csv", type=str, default=str(Path(__file__).with_name("problems.csv")))
     p.add_argument("--config", type=str, default=str(Path(__file__).with_name("tune_config.yaml")))
     p.add_argument("--out", type=str, default=str(Path(__file__).with_name("sweep_results.csv")))
+    # Ensure prompt flushing to SLURM logs/stdout
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+        sys.stderr.reconfigure(line_buffering=True)
+    except Exception:
+        pass
     # Expert override (optional): allow user to disable correctness check (not default)
     p.add_argument("--skip_ref_check", action="store_true", help="Not recommended: record even without checking reference")
     # Optional per-config timeout override
     p.add_argument("--timeout_sec", type=int, default=None, help="Per-config timeout in seconds (defaults to tune_config.yaml or 300)")
+    # Resume options
+    p.add_argument("--resume", action="store_true", help="Resume a prior sweep by skipping attempts up to the last one seen")
+    p.add_argument("--resume_from_log", type=str, default=None, help="Path to a previous run's log file; if omitted, falls back to --out CSV")
     args = p.parse_args()
 
     problems_csv = Path(args.problems_csv)
@@ -229,6 +324,28 @@ def main():
     tried = 0
     succeeded = 0
 
+    # Determine resume checkpoint if requested
+    resume_checkpoint = None
+    resume_source = None
+    if args.resume:
+        if args.resume_from_log:
+            resume_checkpoint = _parse_last_cfg_from_log(Path(args.resume_from_log))
+            if resume_checkpoint is not None:
+                resume_source = "log"
+        if resume_checkpoint is None:
+            # Fallback to last successful CSV row
+            resume_checkpoint = _parse_last_cfg_from_csv(out_csv)
+            if resume_checkpoint is not None:
+                resume_source = "csv"
+        if resume_checkpoint is not None:
+            print(f"[resume] Will skip attempts up to and including last seen from {resume_source}: {resume_checkpoint}", flush=True)
+        else:
+            print("[resume] No valid checkpoint found; starting from beginning", flush=True)
+
+    # When resuming, we skip every cfg until we hit the checkpoint once; then continue after it.
+    resume_active = args.resume and (resume_checkpoint is not None)
+    resume_matched_once = False
+
     for (M, N, K) in problems:
         for (a_major, b_major, c_major) in cfg["layouts"]:
             for cta in cfg["cta_list"]:
@@ -242,6 +359,16 @@ def main():
                             "stages": stages,
                             "atom_m": atoms[0], "atom_n": atoms[1], "atom_k": atoms[2],
                         }
+                        # Handle resume: skip until we pass the last-attempted config
+                        if resume_active and not resume_matched_once:
+                            if _cfg_rows_equal(cfg_row, resume_checkpoint):
+                                # Found the last attempted combo; skip it and start after
+                                resume_matched_once = True
+                                print(f"[resume] checkpoint matched; continuing after: {cfg_row}", flush=True)
+                                continue
+                            else:
+                                # Not yet at checkpoint, keep skipping
+                                continue
                         # Execute in isolated subprocess; do not pre-filter, try them all.
                         res = run_one_subprocess(
                             cfg_row,
@@ -264,14 +391,14 @@ def main():
                                 w = csv.DictWriter(f, fieldnames=FIELDNAMES)
                                 w.writerow({k: row_out.get(k, "") for k in FIELDNAMES})
                                 f.flush()
-                            print(f"[OK] {cfg_row} -> {elapsed:.2f} us, {gflops(M,N,K,elapsed):.2f} GFLOPs")
+                            print(f"[OK] {cfg_row} -> {elapsed:.2f} us, {gflops(M,N,K,elapsed):.2f} GFLOPs", flush=True)
                         else:
                             kind = res.get("kind", "fail")
                             err = res.get("error", "")
                             tag = "[skip]" if kind == "skip" else "[fail]"
-                            print(f"{tag} {cfg_row} -> {err}")
+                            print(f"{tag} {cfg_row} -> {err}", flush=True)
 
-    print(f"Completed {succeeded}/{tried} valid+checked configs. Results -> {out_csv}")
+    print(f"Completed {succeeded}/{tried} valid+checked configs. Results -> {out_csv}", flush=True)
 
 
 if __name__ == "__main__":
