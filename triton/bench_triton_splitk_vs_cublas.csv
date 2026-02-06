@@ -1,0 +1,2 @@
+M,N,K,dtype,reset_out_inside_bench,triton_ms_median,cublas_ms_median,triton_tflops,cublas_tflops,speedup_cublas_over_triton,triton_max_abs_err_vs_fp32ref
+128,128,8192,float16,0,119.86227416992188,221.32940673828125,0.002239532478913711,0.0012128323116025019,1.846531014625296,3076.595947265625

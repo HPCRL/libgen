@@ -1,0 +1,111 @@
+{
+  "problem_count": 5,
+  "config_count": 2,
+  "unique_configs": 2,
+  "total_runs": 10,
+  "problems": [
+    {
+      "index": 0,
+      "shape": "M256_N2048_K8192_L1",
+      "M": 256,
+      "N": 2048,
+      "K": 8192,
+      "L": 1
+    },
+    {
+      "index": 1,
+      "shape": "M256_N8192_K2048_L1",
+      "M": 256,
+      "N": 8192,
+      "K": 2048,
+      "L": 1
+    },
+    {
+      "index": 2,
+      "shape": "M2048_N2048_K16384_L1",
+      "M": 2048,
+      "N": 2048,
+      "K": 16384,
+      "L": 1
+    },
+    {
+      "index": 3,
+      "shape": "M4096_N128_K4096_L1",
+      "M": 4096,
+      "N": 128,
+      "K": 4096,
+      "L": 1
+    },
+    {
+      "index": 4,
+      "shape": "M4096_N4096_K4096_L1",
+      "M": 4096,
+      "N": 4096,
+      "K": 4096,
+      "L": 1
+    }
+  ],
+  "best_configs": [
+    {
+      "problem_index": 0,
+      "problem": "M256_N2048_K8192_L1",
+      "config": "cta64x128x64_s3_atom2x2x1_mnn",
+      "config_id": "cta64x128x64_s3_atom2x2x1_mnn",
+      "original_gflops": 49914.178852843776,
+      "original_us": 172.09407806396484
+    },
+    {
+      "problem_index": 1,
+      "problem": "M256_N8192_K2048_L1",
+      "config": "cta128x128x32_s3_atom2x2x1_mnn",
+      "config_id": "cta128x128x32_s3_atom2x2x1_mnn",
+      "original_gflops": 59850.22992186812,
+      "original_us": 143.52383613586426
+    },
+    {
+      "problem_index": 2,
+      "problem": "M2048_N2048_K16384_L1",
+      "config": "cta64x128x64_s3_atom2x2x1_mnn",
+      "config_id": "cta64x128x64_s3_atom2x2x1_mnn",
+      "original_gflops": 64899.67867725602,
+      "original_us": 2117.7139282226562
+    },
+    {
+      "problem_index": 3,
+      "problem": "M4096_N128_K4096_L1",
+      "config": "cta64x128x64_s3_atom2x2x1_mnn",
+      "config_id": "cta64x128x64_s3_atom2x2x1_mnn",
+      "original_gflops": 47846.047259932806,
+      "original_us": 89.76639747619629
+    },
+    {
+      "problem_index": 4,
+      "problem": "M4096_N4096_K4096_L1",
+      "config": "cta128x128x32_s3_atom2x2x1_mnn",
+      "config_id": "cta128x128x32_s3_atom2x2x1_mnn",
+      "original_gflops": 75285.63739237947,
+      "original_us": 1825.5667114257812
+    }
+  ],
+  "config_deduplication": {
+    "total_configs": 5,
+    "unique_configs": 2,
+    "duplicates_removed": 3
+  },
+  "performance": {
+    "total_runs": 10,
+    "successful": 10,
+    "failed": 0,
+    "correctness_failures": 0,
+    "runtime_failures": 0,
+    "other_failures": 0,
+    "avg_gflops": 50533.6736072888,
+    "max_gflops": 67596.2319160702,
+    "min_gflops": 26749.38743785142
+  },
+  "ncu_profiling": {
+    "total_runs": 10,
+    "successful": 10,
+    "failed": 0
+  }
+}

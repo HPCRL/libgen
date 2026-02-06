@@ -1,0 +1,99 @@
+{
+  "problem_count": 5,
+  "total_runs": 25,
+  "problems": [
+    {
+      "index": 0,
+      "shape": "M256_N3072_K8192_L1",
+      "M": 256,
+      "N": 3072,
+      "K": 8192,
+      "L": 1
+    },
+    {
+      "index": 1,
+      "shape": "M256_N8192_K3072_L1",
+      "M": 256,
+      "N": 8192,
+      "K": 3072,
+      "L": 1
+    },
+    {
+      "index": 2,
+      "shape": "M3072_N256_K4096_L1",
+      "M": 3072,
+      "N": 256,
+      "K": 4096,
+      "L": 1
+    },
+    {
+      "index": 3,
+      "shape": "M4096_N4096_K4096_L1",
+      "M": 4096,
+      "N": 4096,
+      "K": 4096,
+      "L": 1
+    },
+    {
+      "index": 4,
+      "shape": "M4608_N256_K4096_L1",
+      "M": 4608,
+      "N": 256,
+      "K": 4096,
+      "L": 1
+    }
+  ],
+  "best_configs": [
+    {
+      "problem_index": 0,
+      "problem": "M256_N3072_K8192_L1",
+      "config": "cta128x128x32_s4_atom2x2x1_mnn",
+      "original_gflops": 46274.315465282096,
+      "original_us": 278.44608306884766
+    },
+    {
+      "problem_index": 1,
+      "problem": "M256_N8192_K3072_L1",
+      "config": "cta128x128x32_s3_atom2x2x1_mnn",
+      "original_gflops": 60728.34138776726,
+      "original_us": 212.17279434204102
+    },
+    {
+      "problem_index": 2,
+      "problem": "M3072_N256_K4096_L1",
+      "config": "cta128x128x32_s4_atom2x2x1_mnn",
+      "original_gflops": 40067.86425262071,
+      "original_us": 160.78847885131836
+    },
+    {
+      "problem_index": 3,
+      "problem": "M4096_N4096_K4096_L1",
+      "config": "cta128x128x32_s3_atom2x2x1_mnn",
+      "original_gflops": 75285.63739237947,
+      "original_us": 1825.5667114257812
+    },
+    {
+      "problem_index": 4,
+      "problem": "M4608_N256_K4096_L1",
+      "config": "cta128x128x32_s4_atom2x2x1_mnn",
+      "original_gflops": 68415.13572391434,
+      "original_us": 141.25056266784668
+    }
+  ],
+  "performance": {
+    "total_runs": 25,
+    "successful": 25,
+    "failed": 0,
+    "correctness_failures": 0,
+    "runtime_failures": 0,
+    "other_failures": 0,
+    "avg_gflops": 53457.970607854,
+    "max_gflops": 76343.35743776943,
+    "min_gflops": 39955.74100803967
+  },
+  "ncu_profiling": {
+    "total_runs": 25,
+    "successful": 25,
+    "failed": 0
+  }
+}

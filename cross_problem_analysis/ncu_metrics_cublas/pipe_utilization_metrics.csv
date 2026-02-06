@@ -1,0 +1,11 @@
+Profile_File,Kernel_ID,Kernel_Name,Grid_Size,Block_Size,ALU_Pipe_Active_%,ALU_Pipe_Elapsed_%,FMA_Pipe_Active_%,FMA_Pipe_Elapsed_%,FP64_Pipe_Active_%,FP64_Pipe_Elapsed_%,Tensor_Pipe_Active_%,Tensor_Pipe_Elapsed_%,LSU_Pipe_Active_%,LSU_Pipe_Elapsed_%,TEX_Pipe_Active_%,TEX_Pipe_Elapsed_%
+cublas_M256_N2048_K8192_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M256_N2048_K8192_L1.ncu-rep,0,"void at::native::<unnamed>::distribution_elementwise_grid_stride_kernel<float,",492,256,56.877839,51.401704,39.968044,36.119965,0.000000,0.000000,0.000000,0.000000,10.178119,9.198181,0.000000,0.000000
+cublas_M4096_N4096_K4096_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M4096_N4096_K4096_L1.ncu-rep,0,"void at::native::<unnamed>::distribution_elementwise_grid_stride_kernel<float,",492,256,58.463513,57.315647,42.266471,41.436616,0.000000,0.000000,0.000000,0.000000,10.833118,10.620422,0.000000,0.000000
+cublas_M2048_N2048_K16384_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M2048_N2048_K16384_L1.ncu-rep,0,"void at::native::<unnamed>::distribution_elementwise_grid_stride_kernel<float,",492,256,58.604763,57.968378,42.477219,42.015962,0.000000,0.000000,0.000000,0.000000,10.894817,10.776511,0.000000,0.000000
+cublas_M256_N8192_K2048_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M256_N8192_K2048_L1.ncu-rep,0,"void at::native::<unnamed>::distribution_elementwise_grid_stride_kernel<float,",492,256,55.044075,45.401779,37.106770,30.606625,0.000000,0.000000,0.000000,0.000000,8.986625,7.412401,0.000000,0.000000
+cublas_M4096_N128_K4096_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M4096_N128_K4096_L1.ncu-rep,0,"void at::native::<unnamed>::distribution_elementwise_grid_stride_kernel<float,",492,256,58.453843,57.337206,42.257461,41.450222,0.000000,0.000000,0.000000,0.000000,10.831326,10.624417,0.000000,0.000000

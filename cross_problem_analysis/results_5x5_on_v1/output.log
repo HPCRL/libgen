@@ -1,0 +1,157 @@
+./run_example_analysis.sh --problem_indices 2,6,11,16,17 --output_dir results_5x5 
+======================================================================
+  Cross-Problem Kernel Analysis
+======================================================================
+
+Activating conda environment: cutlass-pdsl
+Starting analysis...
+
+================================================================================
+Cross-Problem Kernel Analysis
+================================================================================
+
+1. Loading configurations from: best_by_problem_v1.csv
+
+2. Selected 5 problems:
+   [0] Row 4 (index 2): M256_N2048_K8192_L1
+       Best: 49914.18 GFLOPS @ 172.09 us
+       Config: cta=64×128×64, stages=3, atom=2×2×1
+   [1] Row 8 (index 6): M256_N8192_K2048_L1
+       Best: 59850.23 GFLOPS @ 143.52 us
+       Config: cta=128×128×32, stages=3, atom=2×2×1
+   [2] Row 13 (index 11): M2048_N2048_K16384_L1
+       Best: 64899.68 GFLOPS @ 2117.71 us
+       Config: cta=64×128×64, stages=3, atom=2×2×1
+   [3] Row 18 (index 16): M4096_N128_K4096_L1
+       Best: 47846.05 GFLOPS @ 89.77 us
+       Config: cta=64×128×64, stages=3, atom=2×2×1
+   [4] Row 19 (index 17): M4096_N4096_K4096_L1
+       Best: 75285.64 GFLOPS @ 1825.57 us
+       Config: cta=128×128×32, stages=3, atom=2×2×1
+
+3. Initializing kernel runner
+   Correctness checking: ENABLED
+   Iterations: 50, Warmup: 5
+
+4. Initializing NCU profiler
+   Metric sets: full
+   Iterations: 2
+   ✓ NCU available
+
+5. Creating sweep orchestrator
+
+6. Starting analysis...
+   Output directory: results_5x5
+
+
+================================================================================
+Cross-Problem Kernel Analysis
+================================================================================
+Problem subset size: 5
+Unique configs: 2
+Total runs: 10
+Performance collection: YES
+NCU profiling: YES
+Correctness checking: ENABLED
+Output directory: results_5x5
+================================================================================
+
+Problem subset:
+  [0] M256_N2048_K8192_L1 -> Config #0
+      Best perf: 49914.18 GFLOPS @ 172.09 us
+      cta64x128x64_s3_atom2x2x1_mnn
+  [1] M256_N8192_K2048_L1 -> Config #1
+      Best perf: 59850.23 GFLOPS @ 143.52 us
+      cta128x128x32_s3_atom2x2x1_mnn
+  [2] M2048_N2048_K16384_L1 -> Config #0 (duplicate config)
+      Best perf: 64899.68 GFLOPS @ 2117.71 us
+      cta64x128x64_s3_atom2x2x1_mnn
+  [3] M4096_N128_K4096_L1 -> Config #0 (duplicate config)
+      Best perf: 47846.05 GFLOPS @ 89.77 us
+      cta64x128x64_s3_atom2x2x1_mnn
+  [4] M4096_N4096_K4096_L1 -> Config #1 (duplicate config)
+      Best perf: 75285.64 GFLOPS @ 1825.57 us
+      cta128x128x32_s3_atom2x2x1_mnn
+
+  ℹ Note: 5 problems, but only 2 unique configs
+         Running 5 × 2 = 10 tests (instead of 25)
+
+
+================================================================================
+PERFORMANCE COLLECTION
+================================================================================
+
+[1/10] Running M256_N2048_K8192_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Success: 172.38 us, 49831.34 GFLOPS
+[2/10] Running M256_N2048_K8192_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 315.86 us, 27195.12 GFLOPS
+[3/10] Running M256_N8192_K2048_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Success: 179.47 us, 47863.79 GFLOPS
+[4/10] Running M256_N8192_K2048_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 162.55 us, 52844.95 GFLOPS
+[5/10] Running M2048_N2048_K16384_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Success: 2355.76 us, 58341.69 GFLOPS
+[6/10] Running M2048_N2048_K16384_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 2427.90 us, 56608.07 GFLOPS
+[7/10] Running M4096_N128_K4096_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Success: 78.58 us, 54656.03 GFLOPS
+[8/10] Running M4096_N128_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 160.56 us, 26749.39 GFLOPS
+[9/10] Running M4096_N4096_K4096_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Success: 2159.29 us, 63650.12 GFLOPS
+[10/10] Running M4096_N4096_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 2033.23 us, 67596.23 GFLOPS
+
+✓ Performance results saved to results_5x5/performance_results.csv
+
+================================================================================
+NCU PROFILING
+================================================================================
+
+[1/10] Profiling M256_N2048_K8192_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob0_cfg0_M256_N2048_K8192_L1_cta64x128x64_s3_atom2x2x1_mnn.ncu-rep
+[2/10] Profiling M256_N2048_K8192_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob0_cfg1_M256_N2048_K8192_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[3/10] Profiling M256_N8192_K2048_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob1_cfg0_M256_N8192_K2048_L1_cta64x128x64_s3_atom2x2x1_mnn.ncu-rep
+[4/10] Profiling M256_N8192_K2048_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob1_cfg1_M256_N8192_K2048_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[5/10] Profiling M2048_N2048_K16384_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob2_cfg0_M2048_N2048_K16384_L1_cta64x128x64_s3_atom2x2x1_mnn.ncu-rep
+[6/10] Profiling M2048_N2048_K16384_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob2_cfg1_M2048_N2048_K16384_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[7/10] Profiling M4096_N128_K4096_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob3_cfg0_M4096_N128_K4096_L1_cta64x128x64_s3_atom2x2x1_mnn.ncu-rep
+[8/10] Profiling M4096_N128_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob3_cfg1_M4096_N128_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[9/10] Profiling M4096_N4096_K4096_L1 with config cta64x128x64_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob4_cfg0_M4096_N4096_K4096_L1_cta64x128x64_s3_atom2x2x1_mnn.ncu-rep
+[10/10] Profiling M4096_N4096_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: results_5x5/ncu_profiles/prob4_cfg1_M4096_N4096_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+
+✓ NCU results saved to results_5x5/ncu_results.csv
+✓ NCU report files in results_5x5/ncu_profiles
+
+✓ Summary saved to results_5x5/summary.json
+
+================================================================================
+SWEEP COMPLETE
+================================================================================
+
+
+================================================================================
+Analysis Complete!
+================================================================================
+
+Results saved to: results_5x5
+  - performance_results.csv: Performance data
+  - summary.json: Statistics and metadata
+  - ncu_profiles/: NCU report files (.ncu-rep)
+
+
+✓ Analysis completed successfully!
+
+View results:
+  - CSV data:    cat results_analysis/performance_results.csv
+  - Summary:     cat results_analysis/summary.json | python -m json.tool
+  - NCU reports: ls results_analysis/ncu_profiles/ 2>/dev/null || echo 'No NCU profiles'

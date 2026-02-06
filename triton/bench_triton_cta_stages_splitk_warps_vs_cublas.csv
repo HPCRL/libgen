@@ -1,0 +1,2 @@
+M,N,K,dtype,num_autotune_configs,reset_out_inside_bench,triton_ms_median,cublas_ms_median,triton_tflops,cublas_tflops,speedup_cublas_over_triton,triton_max_abs_err_vs_fp32ref
+128,128,8192,float16,80,0,0.26419198513031006,0.01740800030529499,1.0160620726915577,15.420235023683334,0.06589147773240989,159215.859375

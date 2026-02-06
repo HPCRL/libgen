@@ -1,0 +1,25 @@
+# Split-K sweep configuration
+# Adds split_k_list to existing tuning dimensions.
+
+cta_list:
+  - 128x128x32
+  - 128x64x32
+  - 64x128x32
+  - 64x64x32
+  - 64x32x32
+
+stages: [3, 4]
+
+atom_layouts:
+  - 1x1x1
+  - 2x2x1
+
+layouts: [mnn]
+
+# New: list of split_k factors to try
+split_k_list: [1, 2, 4, 8]
+
+iters: 30
+warmup: 5
+use_cold_l2: False
+timeout_sec: 300

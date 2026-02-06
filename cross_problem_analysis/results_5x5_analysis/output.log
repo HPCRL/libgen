@@ -1,0 +1,202 @@
+======================================================================
+  5×5 Cross-Problem Kernel Analysis
+======================================================================
+
+Activating conda environment: cutlass-pdsl
+Starting analysis...
+
+================================================================================
+5×5 Cross-Problem Analysis
+================================================================================
+
+1. Loading configurations from: best_by_problem_v1.csv
+
+2. Selected 5 problems:
+   [0] Row 5: M256_N3072_K8192_L1
+       Best: 46274.32 GFLOPS @ 278.45 us
+       Config: cta=128×128×32, stages=4, atom=2×2×1
+   [1] Row 9: M256_N8192_K3072_L1
+       Best: 60728.34 GFLOPS @ 212.17 us
+       Config: cta=128×128×32, stages=3, atom=2×2×1
+   [2] Row 14: M3072_N256_K4096_L1
+       Best: 40067.86 GFLOPS @ 160.79 us
+       Config: cta=128×128×32, stages=4, atom=2×2×1
+   [3] Row 19: M4096_N4096_K4096_L1
+       Best: 75285.64 GFLOPS @ 1825.57 us
+       Config: cta=128×128×32, stages=3, atom=2×2×1
+   [4] Row 20: M4608_N256_K4096_L1
+       Best: 68415.14 GFLOPS @ 141.25 us
+       Config: cta=128×128×32, stages=4, atom=2×2×1
+
+3. Initializing kernel runner (correctness checking: ENABLED)
+4. Initializing NCU profiler
+   ✓ NCU available
+
+5. Creating sweep orchestrator
+
+6. Starting 5×5 analysis (25 runs)...
+   Output directory: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis
+
+
+================================================================================
+Cross-Problem Kernel Analysis
+================================================================================
+Problem subset size: 5
+Total runs: 25
+Performance collection: YES
+NCU profiling: YES
+Correctness checking: ENABLED
+Output directory: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis
+================================================================================
+
+Problem subset:
+  [0] M256_N3072_K8192_L1 -> cta128x128x32_s4_atom2x2x1_mnn
+      Best perf: 46274.32 GFLOPS @ 278.45 us
+  [1] M256_N8192_K3072_L1 -> cta128x128x32_s3_atom2x2x1_mnn
+      Best perf: 60728.34 GFLOPS @ 212.17 us
+  [2] M3072_N256_K4096_L1 -> cta128x128x32_s4_atom2x2x1_mnn
+      Best perf: 40067.86 GFLOPS @ 160.79 us
+  [3] M4096_N4096_K4096_L1 -> cta128x128x32_s3_atom2x2x1_mnn
+      Best perf: 75285.64 GFLOPS @ 1825.57 us
+  [4] M4608_N256_K4096_L1 -> cta128x128x32_s4_atom2x2x1_mnn
+      Best perf: 68415.14 GFLOPS @ 141.25 us
+
+
+================================================================================
+PERFORMANCE COLLECTION
+================================================================================
+
+[1/25] Running M256_N3072_K8192_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 315.86 us, 40792.69 GFLOPS
+[2/25] Running M256_N3072_K8192_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 316.83 us, 40668.75 GFLOPS
+[3/25] Running M256_N3072_K8192_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 315.83 us, 40797.23 GFLOPS
+[4/25] Running M256_N3072_K8192_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 316.81 us, 40671.38 GFLOPS
+[5/25] Running M256_N3072_K8192_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 315.84 us, 40795.33 GFLOPS
+[6/25] Running M256_N8192_K3072_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 242.05 us, 53231.71 GFLOPS
+[7/25] Running M256_N8192_K3072_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 240.83 us, 53502.76 GFLOPS
+[8/25] Running M256_N8192_K3072_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 242.05 us, 53231.71 GFLOPS
+[9/25] Running M256_N8192_K3072_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 240.78 us, 53512.43 GFLOPS
+[10/25] Running M256_N8192_K3072_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 241.99 us, 53245.23 GFLOPS
+[11/25] Running M3072_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 160.81 us, 40062.28 GFLOPS
+[12/25] Running M3072_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 161.24 us, 39955.74 GFLOPS
+[13/25] Running M3072_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 160.83 us, 40058.46 GFLOPS
+[14/25] Running M3072_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 161.24 us, 39955.90 GFLOPS
+[15/25] Running M3072_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 160.83 us, 40057.66 GFLOPS
+[16/25] Running M4096_N4096_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 2054.94 us, 66882.13 GFLOPS
+[17/25] Running M4096_N4096_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 1800.27 us, 76343.36 GFLOPS
+[18/25] Running M4096_N4096_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 1818.26 us, 75588.37 GFLOPS
+[19/25] Running M4096_N4096_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 1967.18 us, 69865.81 GFLOPS
+[20/25] Running M4096_N4096_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 1968.31 us, 69825.78 GFLOPS
+[21/25] Running M4608_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 141.54 us, 68276.55 GFLOPS
+[22/25] Running M4608_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 161.75 us, 59744.14 GFLOPS
+[23/25] Running M4608_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 161.57 us, 59812.30 GFLOPS
+[24/25] Running M4608_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Success: 161.71 us, 59759.27 GFLOPS
+[25/25] Running M4608_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Success: 161.57 us, 59812.30 GFLOPS
+
+✓ Performance results saved to /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/performance_results.csv
+
+================================================================================
+NCU PROFILING
+================================================================================
+
+[1/25] Profiling M256_N3072_K8192_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob0_cfg0_M256_N3072_K8192_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[2/25] Profiling M256_N3072_K8192_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob0_cfg1_M256_N3072_K8192_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[3/25] Profiling M256_N3072_K8192_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob0_cfg2_M256_N3072_K8192_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[4/25] Profiling M256_N3072_K8192_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob0_cfg3_M256_N3072_K8192_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[5/25] Profiling M256_N3072_K8192_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob0_cfg4_M256_N3072_K8192_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[6/25] Profiling M256_N8192_K3072_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob1_cfg0_M256_N8192_K3072_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[7/25] Profiling M256_N8192_K3072_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob1_cfg1_M256_N8192_K3072_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[8/25] Profiling M256_N8192_K3072_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob1_cfg2_M256_N8192_K3072_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[9/25] Profiling M256_N8192_K3072_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob1_cfg3_M256_N8192_K3072_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[10/25] Profiling M256_N8192_K3072_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob1_cfg4_M256_N8192_K3072_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[11/25] Profiling M3072_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob2_cfg0_M3072_N256_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[12/25] Profiling M3072_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob2_cfg1_M3072_N256_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[13/25] Profiling M3072_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob2_cfg2_M3072_N256_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[14/25] Profiling M3072_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob2_cfg3_M3072_N256_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[15/25] Profiling M3072_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob2_cfg4_M3072_N256_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[16/25] Profiling M4096_N4096_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob3_cfg0_M4096_N4096_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[17/25] Profiling M4096_N4096_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob3_cfg1_M4096_N4096_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[18/25] Profiling M4096_N4096_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob3_cfg2_M4096_N4096_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[19/25] Profiling M4096_N4096_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob3_cfg3_M4096_N4096_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[20/25] Profiling M4096_N4096_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob3_cfg4_M4096_N4096_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[21/25] Profiling M4608_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob4_cfg0_M4608_N256_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[22/25] Profiling M4608_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob4_cfg1_M4608_N256_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[23/25] Profiling M4608_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob4_cfg2_M4608_N256_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+[24/25] Profiling M4608_N256_K4096_L1 with config cta128x128x32_s3_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob4_cfg3_M4608_N256_K4096_L1_cta128x128x32_s3_atom2x2x1_mnn.ncu-rep
+[25/25] Profiling M4608_N256_K4096_L1 with config cta128x128x32_s4_atom2x2x1_mnn...
+  ✓ Profile saved: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles/prob4_cfg4_M4608_N256_K4096_L1_cta128x128x32_s4_atom2x2x1_mnn.ncu-rep
+
+✓ NCU results saved to /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_results.csv
+✓ NCU report files in /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/ncu_profiles
+
+✓ Summary saved to /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis/summary.json
+
+================================================================================
+SWEEP COMPLETE
+================================================================================
+
+
+================================================================================
+Analysis Complete!
+================================================================================
+
+Results saved to: /media/datassd/sina/libgen/cross_problem_analysis/results_5x5_analysis
+  - performance_results.csv: Performance data for all 25 runs
+  - summary.json: Statistics and metadata
+  - ncu_profiles/: NCU report files (.ncu-rep)
+
+
+✓ Analysis completed successfully!
+
+View results:
+  - CSV data:    cat results_5x5_analysis/performance_results.csv
+  - Summary:     cat results_5x5_analysis/summary.json | python -m json.tool
+  - NCU reports: ls results_5x5_analysis/ncu_profiles/

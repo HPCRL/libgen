@@ -1,0 +1,11 @@
+Profile_File,Kernel_ID,Kernel_Name,Grid_Size,Block_Size,ALU_Pipe_Active_%,ALU_Pipe_Elapsed_%,FMA_Pipe_Active_%,FMA_Pipe_Elapsed_%,FP64_Pipe_Active_%,FP64_Pipe_Elapsed_%,Tensor_Pipe_Active_%,Tensor_Pipe_Elapsed_%,LSU_Pipe_Active_%,LSU_Pipe_Elapsed_%,TEX_Pipe_Active_%,TEX_Pipe_Elapsed_%
+cublas_M256_N2048_K8192_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M256_N2048_K8192_L1.ncu-rep,0,ampere_h16816gemm_128x128_ldg8_stages_32x5_nn,160,128,4.432456,4.048382,0.394887,0.360670,0.000000,0.000000,80.121736,73.179163,18.627202,17.013149,0.012226,0.011166
+cublas_M4096_N4096_K4096_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M4096_N4096_K4096_L1.ncu-rep,0,ampere_h16816gemm_256x128_ldg8_stages_32x3_nn,512,256,2.889466,2.575822,0.109494,0.097609,0.000000,0.000000,96.319461,85.864240,18.465541,16.461156,0.005879,0.005241
+cublas_M2048_N2048_K16384_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M2048_N2048_K16384_L1.ncu-rep,0,ampere_h16816gemm_256x128_ldg8_stages_32x3_nn,640,256,3.043180,2.954449,0.232595,0.225813,0.000000,0.000000,94.386109,91.634073,18.483754,17.944820,0.007201,0.006991
+cublas_M256_N8192_K2048_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M256_N8192_K2048_L1.ncu-rep,0,ampere_h16816gemm_256x128_ldg8_stages_32x3_nn,64,256,3.389559,2.596558,0.210786,0.161472,0.000000,0.000000,92.712075,71.021717,18.888727,14.469635,0.011317,0.008670
+cublas_M4096_N128_K4096_L1.ncu-rep,,,,,%,%,%,%,%,%,%,%,%,%,%,%
+cublas_M4096_N128_K4096_L1.ncu-rep,0,ampere_h16816gemm_256x128_ldg8_stages_32x3_nn,96,256,4.334354,3.261908,0.768265,0.578174,0.000000,0.000000,63.894666,48.085259,16.968669,12.770125,0.023399,0.017609

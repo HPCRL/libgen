@@ -1,0 +1,73 @@
+"""
+Run one split-K config for the tunable CuTe DSL GEMM and emit a compact JSON result line.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import io
+import sys
+import contextlib
+from pathlib import Path
+
+
+def main():
+    p = argparse.ArgumentParser(description="Run a single Split-K CuTe GEMM config and return JSON result")
+    p.add_argument("--M", type=int, required=True)
+    p.add_argument("--N", type=int, required=True)
+    p.add_argument("--K", type=int, required=True)
+    p.add_argument("--L", type=int, default=1)
+    p.add_argument("--a_major", choices=["m", "k"], required=True)
+    p.add_argument("--b_major", choices=["n", "k"], required=True)
+    p.add_argument("--c_major", choices=["n", "m"], required=True)
+    p.add_argument("--cta_m", type=int, required=True)
+    p.add_argument("--cta_n", type=int, required=True)
+    p.add_argument("--cta_k", type=int, required=True)
+    p.add_argument("--stages", type=int, required=True)
+    p.add_argument("--atom_m", type=int, required=True)
+    p.add_argument("--atom_n", type=int, required=True)
+    p.add_argument("--atom_k", type=int, required=True)
+    p.add_argument("--iters", type=int, default=50)
+    p.add_argument("--warmup", type=int, default=5)
+    p.add_argument("--use_cold_l2", action="store_true")
+    p.add_argument("--skip_ref_check", action="store_true")
+    p.add_argument("--split_k", type=int, default=4)
+    args = p.parse_args()
+
+    this_dir = Path(__file__).parent
+    sys.path.insert(0, str(this_dir))
+    import tensorop_gemm_tunable_splitk as gemm_mod  # type: ignore
+
+    mnkl = (args.M, args.N, args.K, args.L)
+    atoms = (args.atom_m, args.atom_n, args.atom_k)
+    cta = (args.cta_m, args.cta_n, args.cta_k)
+
+    try:
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            elapsed = gemm_mod.run_splitk(
+                a_major=args.a_major,
+                b_major=args.b_major,
+                c_major=args.c_major,
+                ab_dtype=gemm_mod.cutlass.Float16,
+                c_dtype=gemm_mod.cutlass.Float16,
+                acc_dtype=gemm_mod.cutlass.Float32,
+                mnkl=mnkl,
+                atom_layout_mnk=atoms,
+                split_k=args.split_k,
+                warmup_iterations=args.warmup,
+                iterations=args.iters,
+                skip_ref_check=args.skip_ref_check,
+                use_cold_l2=args.use_cold_l2,
+                cta_tiler=cta,
+                num_stages=args.stages,
+            )
+        print(json.dumps({"ok": True, "elapsed_us": float(elapsed)}))
+    except AssertionError as e:
+        print(json.dumps({"ok": False, "kind": "skip", "error": str(e)}))
+    except Exception as e:
+        print(json.dumps({"ok": False, "kind": "fail", "error": f"{type(e).__name__}: {e}"}))
+
+
+if __name__ == "__main__":
+    main()
